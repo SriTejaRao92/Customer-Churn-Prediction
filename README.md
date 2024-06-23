@@ -5,11 +5,12 @@ Tools: Python, Pandas, Scikit-learn, Matplotlib/Seaborn, Jupyter Notebook.
 
 Steps and Code:
 Data Collection: Use a publicly available dataset (e.g., Telco Customer Churn dataset from Kaggle).
-import pandas as pd
 
 # Load the dataset
+import pandas as pd
 data = pd.read_csv('data/telco_customer_churn.csv')
 Data Cleaning: Handle missing values, encode categorical variables, and normalize numerical features.
+
 # Handle missing values
 data.dropna(inplace=True)
 
