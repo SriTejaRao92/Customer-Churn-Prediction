@@ -1,7 +1,7 @@
 # Customer-Churn-Prediction
 Objective: Predict whether a customer will churn based on historical data.
 
-Tools: Python, Pandas, Scikit-learn, Matplotlib/Seaborn, Jupyter Notebook.
+Tools: Python, Pandas, Scikit-learn, Matplotlib/Seaborn, Jupyter Notebook
 
 Steps and Code:
 Data Collection: Use a publicly available dataset (e.g., Telco Customer Churn dataset from Kaggle).
