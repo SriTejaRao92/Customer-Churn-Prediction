@@ -1,92 +1,51 @@
-# Customer-Churn-Prediction
-Objective: Predict whether a customer will churn based on historical data.
+# Customer Churn Prediction
 
-Tools: Python, Pandas, Scikit-learn, Matplotlib/Seaborn, Jupyter Notebook
+This project predicts customer churn using historical data.
 
-Steps and Code:
-Data Collection: Use a publicly available dataset (e.g., Telco Customer Churn dataset from Kaggle).
+## Project Description
+The goal of this project is to predict whether a customer will churn (i.e., leave the service) based on historical data. Various machine learning models are used to build the predictive model.
 
-# Load the dataset
-import pandas as pd
-data = pd.read_csv('data/telco_customer_churn.csv')
-Data Cleaning: Handle missing values, encode categorical variables, and normalize numerical features.
+## Project Structure
+- `data/`: Contains the raw data file `telco_customer_churn.csv`.
+- `notebooks/`: Contains the Jupyter Notebook `churn_analysis.ipynb` with the complete analysis.
+- `src/`: Contains Python scripts for data preprocessing, exploratory data analysis, feature engineering, and modeling.
+- `README.md`: Project documentation.
+- `requirements.txt`: List of dependencies.
 
-# Handle missing values
-data.dropna(inplace=True)
+## Installation and Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/customer_churn_prediction.git
+   cd customer_churn_prediction
+2. Install dependencies:
+   pip install -r requirements.txt
+   
+## Usage
+1. Run the data preprocessing script:
+   python src/data_preprocessing.py
+2. Run the exploratory data analysis script:
+   python src/eda.py
+3. Run the feature engineering script:
+   python src/feature_engineering.py
+4. Run the modeling script:
+   python src/modeling.py
+   
+## Features
+1.Data Preprocessing: Handling missing values, encoding categorical variables, normalizing numerical features.
+2.Exploratory Data Analysis: Visualizations of data distributions and correlations.
+3.Feature Engineering: Creating new features such as tenure categories.
+4.Modeling: Building and evaluating machine learning models (Logistic Regression, Random Forest, XGBoost).
 
-# Encode categorical variables
-data['gender'] = data['gender'].map({'Male': 1, 'Female': 0})
-data = pd.get_dummies(data, columns=['Partner', 'Dependents', 'PhoneService', 'MultipleLines', 
-                                     'InternetService', 'OnlineSecurity', 'OnlineBackup', 
-                                     'DeviceProtection', 'TechSupport', 'StreamingTV', 
-                                     'StreamingMovies', 'Contract', 'PaperlessBilling', 
-                                     'PaymentMethod'], drop_first=True)
+## Results and Visualizations
+Logistic Regression: (0.795260663507109, 0.6375266524520256, 0.5329768270944741, 0.5805825242718446, 0.7116143012167012)
+Random Forest: (0.785781990521327, 0.6252873563218391, 0.48484848484848486, 0.5461847389558233, 0.6898096523661404)
+XGBoost: (0.7691943127962085, 0.5734126984126984, 0.5151515151515151, 0.5427230046948357, 0.6881761449224328)
 
-# Normalize numerical features
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-data[['tenure', 'MonthlyCharges', 'TotalCharges']] = scaler.fit_transform(data[['tenure', 'MonthlyCharges', 'TotalCharges']])
-Exploratory Data Analysis (EDA): Visualize data distributions, correlations, and identify key features impacting churn.
-import matplotlib.pyplot as plt
-import seaborn as sns
+## Contributing
+Contributions are welcome! Please create a pull request or open an issue for any improvements or bug fixes.
 
-# Visualize the distribution of the target variable
-sns.countplot(data['Churn'])
-plt.show()
+## License
+This project is licensed under the MIT License.
 
-# Correlation heatmap
-plt.figure(figsize=(12, 8))
-sns.heatmap(data.corr(), annot=True, fmt='.2f')
-plt.show()
-Feature Engineering: Create new features if needed (e.g., tenure length categories).
-
-# Create tenure length categories
-data['tenure_category'] = pd.cut(data['tenure'], bins=[0, 12, 24, 48, 60, 72], labels=['0-1 Year', '1-2 Years', '2-4 Years', '4-5 Years', '5-6 Years'])
-data = pd.get_dummies(data, columns=['tenure_category'], drop_first=True)
-Modeling: Use different classification models (Logistic Regression, Random Forest, XGBoost) to predict churn.
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
-
-# Split the data
-X = data.drop(['Churn'], axis=1)
-y = data['Churn'].map({'Yes': 1, 'No': 0})
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-# Logistic Regression
-log_reg = LogisticRegression()
-log_reg.fit(X_train, y_train)
-y_pred_log_reg = log_reg.predict(X_test)
-
-# Random Forest
-rf_clf = RandomForestClassifier()
-rf_clf.fit(X_train, y_train)
-y_pred_rf = rf_clf.predict(X_test)
-
-# XGBoost
-xgb_clf = XGBClassifier()
-xgb_clf.fit(X_train, y_train)
-y_pred_xgb = xgb_clf.predict(X_test)
-Evaluation: Compare model performance using accuracy, precision, recall, F1-score, and ROC-AUC.
-# Evaluation metrics
-def evaluate_model(y_test, y_pred):
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_pred)
-    return accuracy, precision, recall, f1, roc_auc
-
-# Logistic Regression
-log_reg_metrics = evaluate_model(y_test, y_pred_log_reg)
-print('Logistic Regression:', log_reg_metrics)
-
-# Random Forest
-rf_metrics = evaluate_model(y_test, y_pred_rf)
-print('Random Forest:', rf_metrics)
-
-# XGBoost
-xgb_metrics = evaluate_model(y_test, y_pred_xgb)
-print('XGBoost:', xgb_metrics)
+## Contact Information
+For any questions or feedback, please contact SriTejaRao Gade at sritejarao1@gmail.com
